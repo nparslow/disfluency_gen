@@ -1,5 +1,7 @@
-.idea
+.gitignore
 .coverage
+.idea
 *.pyc
 __pycache__
+Dockerfile
 data

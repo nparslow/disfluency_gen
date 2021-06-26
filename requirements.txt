@@ -1,0 +1,4 @@
+tensorflow-text==2.5.0
+trsfile==0.3.2
+# for testing:
+coverage==5.5
