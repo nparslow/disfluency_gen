@@ -1,8 +1,10 @@
-
-# from : https://colab.research.google.com/github/tensorflow/text/blob/master/docs/tutorials/nmt_with_attention.ipynb#scrollTo=TqHsArVZ3jFS
+# from :
+# https://colab.research.google.com/github/tensorflow/text/blob/master/docs/tutorials/nmt_with_attention.ipynb#scrollTo=TqHsArVZ3jFS
 import tensorflow as tf
 import tensorflow_text as tf_text
+import numpy as np
 from tensorflow.keras.layers.experimental import preprocessing
+
 
 
 def load_data(path):
@@ -18,9 +20,8 @@ def load_data(path):
     return targ, inp
 
 
-def create_dataset(inputs, targets):
+def create_dataset(inputs, targets, BATCH_SIZE=64):
     BUFFER_SIZE = len(inputs)
-    BATCH_SIZE = 64
 
     dataset = tf.data.Dataset.from_tensor_slices((inputs, targets)).shuffle(BUFFER_SIZE)
     dataset = dataset.batch(BATCH_SIZE)
@@ -33,6 +34,13 @@ def print_examples(dataset):
         print()
         print(example_target_batch[:5])
         break
+
+
+def print_example_tokens(dataset, input_text_processor, target_text_processor):
+    for example_input_batch, example_target_batch in dataset.take(1):
+        print("Example input token sequences (indices):")
+        example_tokens = input_text_processor(example_input_batch)
+        print(example_tokens[:3, :10])
 
 
 def tf_lower_and_split_punct(text):
@@ -57,3 +65,21 @@ def create_text_processor(samples, max_vocab_size):
         max_tokens=max_vocab_size)
     text_processor.adapt(samples)
     return text_processor
+
+
+def index_to_string(text_processor, tokens):
+    input_vocab = np.array(text_processor.get_vocabulary())
+    tokens = input_vocab[tokens[0].numpy()]
+    return ' '.join(tokens)
+
+
+def plot_mask(tokens):
+    plt.subplot(1, 2, 1)
+    plt.pcolormesh(tokens)
+    plt.title('Token IDs')
+
+    plt.subplot(1, 2, 2)
+    plt.pcolormesh(tokens != 0)
+    plt.title('Mask')
+
+

@@ -1,3 +1,5 @@
+pandas==1.2.5
+numpy==1.19.2
 tensorflow-text==2.5.0
 trsfile==0.3.2
 # for testing:
