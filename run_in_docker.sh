@@ -63,10 +63,11 @@ if [ -n "${script_to_run}" ]; then
   echo "/* Running Docker Image */"
 
   docker run --rm ${INTERACTIVE} \
+	 --gpus all \
+	 -u $(id -u):$(id -g) \
 	 ${NOTEBOOK_PATH:+ -v "$NOTEBOOK_PATH:/opt/disfluency_generator/notebooks"} \
          -v "${DATA_DIR}:/opt/disfluency_generator/data" \
 	 ${PORT:+ -p "$PORT:$PORT"} \
          "${IMAGE_NAME}" ${script_to_run}
 fi
 
-# todo gpu - do we need cuda ?
