@@ -28,11 +28,12 @@ def create_dataset(inputs, targets, BATCH_SIZE=64):
     return dataset
 
 
-def print_examples(dataset):
+def print_examples(dataset, n=5):
     for example_input_batch, example_target_batch in dataset.take(1):
-        print(example_input_batch[:5])
-        print()
-        print(example_target_batch[:5])
+        for ex_in, ex_ta in zip(example_input_batch[:n], example_target_batch[:n]):
+            print(ex_in.numpy().decode())
+            print(ex_ta.numpy().decode())
+            print("--------------------")
         break
 
 
@@ -45,13 +46,14 @@ def print_example_tokens(dataset, input_text_processor, target_text_processor):
 
 def tf_lower_and_split_punct(text):
     # todo - the regexes below are language specific
-    # Split accecented characters.
+    # Split accented characters. - NB this will see accents stripped out later on
     text = tf_text.normalize_utf8(text, 'NFKD')  # NFKD re: http://unicode.org/reports/tr15/ like ICU
-    text = tf.strings.lower(text)
-    # Keep space, a to z, and select punctuation.
-    text = tf.strings.regex_replace(text, '[^ a-z.?!,¿]', '')
-    # Add spaces around punctuation.
-    text = tf.strings.regex_replace(text, '[.?!,¿]', r' \0 ')
+    text = tf.strings.lower(text)  # does tf lower work ok for unicode accented chars?
+    # Keep space, a to z, and strip punctuation and accents if NFKD is used.
+    text = tf.strings.regex_replace(text, r'[^\w\s]', '')  # we don't need punctuation, accents though?
+
+    # compress multiple spaces.
+    text = tf.strings.regex_replace(text, r'\s+', r' ')
     # Strip whitespace.
     text = tf.strings.strip(text)
 
@@ -82,4 +84,12 @@ def plot_mask(tokens):
     plt.pcolormesh(tokens != 0)
     plt.title('Mask')
 
+
+
+def main():
+    text = "A mãe do Flávio era florista."
+    print(tf_lower_and_split_punct(text))
+
+if __name__ == '__main__':
+    main()
 

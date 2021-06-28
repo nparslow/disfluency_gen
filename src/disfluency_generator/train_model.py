@@ -28,9 +28,14 @@ def prepare_data(data_path, verbose=0):
     if verbose > 0:
         print_examples(dataset)
 
+    return inputs, targets, dataset
+
+
+
+def create_text_processors(inputs, targets, dataset, verbose):
+
     # todo - check with corpus:
     max_vocab_size = 5000
-
     input_text_processor = create_text_processor(inputs, max_vocab_size)
 
     if verbose > 0:

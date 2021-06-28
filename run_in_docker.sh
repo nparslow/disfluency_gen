@@ -69,3 +69,4 @@ if [ -n "${script_to_run}" ]; then
          "${IMAGE_NAME}" ${script_to_run}
 fi
 
+# todo gpu - do we need cuda ?
