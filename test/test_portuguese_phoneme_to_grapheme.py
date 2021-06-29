@@ -7,7 +7,7 @@ class TestPortuguesePhonemeToGrapheme(unittest.TestCase):
 
     def setUp(self) -> None:
         from src.disfluency_generator.portuguese_phoneme_to_grapheme import PhonemeToGrapheme
-        self.repoRoot = os.path.abspath(os.path.join(os.getcwd(), '..'))
+        self.repoRoot = os.path.abspath(os.getcwd())
 
         test_sampa_tsv = os.path.join(self.repoRoot, "test", "resources", "test_sampa.tsv")
         self.p2g = PhonemeToGrapheme(test_sampa_tsv)

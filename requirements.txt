@@ -1,6 +1,6 @@
-#pandas==1.2.5
-#numpy==1.19.2
-tensorflow-text
+pandas==1.1.5
+numpy==1.19.5
+tensorflow-text==2.5.0
 # for testing:
 coverage==5.5
 jupyterlab==3.0.14

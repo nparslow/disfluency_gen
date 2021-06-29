@@ -10,8 +10,13 @@ prompt text -> disfluent read aloud version
 # Usage:
 
 ## Requirements:
-docker usage is currently set up for GPU only, cuda 10 or 11
-however outside docker, it can be run with python3
+nvidia-container-toolkit
+
+docker (version > 19.03)
+
+usage is currently set up for GPU only, cuda 10 or 11.
+
+However outside docker, it can be run with python3
 `pip3 install -r requirements.txt`
 and can be installed as a module if you like:
 `pip3 install .`
@@ -19,6 +24,9 @@ and can be installed as a module if you like:
 ## Data:
 1. Download a dataset, currently it's just set up for the 'LetsRead' Corpus https://lsi.co.it.pt//spl/letsreaddb.html
 2. unzip and place in the data directory (e.g. data/LetsReadDB)
+
+## Entry Point:
+./run_in_docker -h
 
 ## Jupyter usage:
 `./run_in_docker.sh jupyter`

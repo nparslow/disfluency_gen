@@ -1,13 +1,11 @@
 
 import os
-
-import pandas
 import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
 import re
 
-from portuguese_phoneme_to_grapheme import PhonemeToGrapheme
+from .portuguese_phoneme_to_grapheme import PhonemeToGrapheme
 
 
 class LetsReadDataPrep:
@@ -23,6 +21,7 @@ class LetsReadDataPrep:
         try:
             tree = ET.parse(trs_filename)
         except FileNotFoundError:
+            print(f"Cannot find file {trs_filename}, skipping")
             return np.nan
         root = tree.getroot()
         data = [text.strip() for node in root.findall('.//Turn') for text in node.itertext() if text.strip()]
@@ -44,13 +43,13 @@ class LetsReadDataPrep:
                         if re.match(r'^\[[^\]]+\]$', spoken) and self.p2g is not None:
                             approximate_written_form = self.p2g.baseline_p2g(spoken)
                             spoken = approximate_written_form
-                        elif "[" in spoken or "]" in spoken:
+                        elif ("[" in spoken or "]" in spoken) and self.p2g is not None:
                             print(f"Likely typo: {spoken}")
 
                         spoken_text.append(spoken)
             else:
                 spoken_text.append(element)
-        # todo - this includes phonetic transcriptions in []
+
         return " ".join(spoken_text)
 
     def prep_letsread(self):
@@ -82,7 +81,7 @@ class LetsReadDataPrep:
 
 
 def main():
-    # todo - lets read download instructions in readme
+
     repoRoot = os.path.abspath(os.path.join(os.getcwd(), '..', '..'))
     corpus_path = os.path.join(repoRoot, "data", "LetsReadDB")
 
