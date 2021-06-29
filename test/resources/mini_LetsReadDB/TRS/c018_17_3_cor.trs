@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Trans SYSTEM "trans-14.dtd">
+<Trans scribe="lsi" audio_filename="../Audio/c018/c018_17_3" version="2" version_date="150413">
+<Topics>
+<Topic id="to1" desc="A solidão das suas crateras, o deserto das suas planícies e a luz pálida das suas vigílias noturnas."/>
+</Topics>
+<Episode>
+<Section type="report" startTime="0" endTime="13.100" topic="to1">
+<Turn startTime="0" endTime="13.100">
+<Sync time="0.000"/>
+*NOI(res)
+<Sync time="0.980"/>
+a
+<Sync time="1.150"/>
+solidão
+<Sync time="1.880"/>
+das
+<Sync time="2.120"/>
+suas
+<Sync time="2.610"/>
+*SIL
+<Sync time="3.206"/>
+crateras
+<Sync time="4.089"/>
+*NOI(res)
+<Sync time="4.610"/>
+o
+<Sync time="4.720"/>
+deserto
+<Sync time="5.299"/>
+das
+<Sync time="5.540"/>
+suas
+<Sync time="5.910"/>
+planícies
+<Sync time="6.837"/>
+*NOI(res)
+<Sync time="7.360"/>
+e
+<Sync time="7.535"/>
+a
+<Sync time="7.640"/>
+luz
+<Sync time="7.970"/>
+pálida
+<Sync time="8.760"/>
+das
+<Sync time="9.065"/>
+*PHO(suas,[S"u6S])
+<Sync time="9.570"/>
+*PAU(vigílias,[viZ"i...li6S])
+<Sync time="10.986"/>
+*NOI(res)
+<Sync time="11.240"/>
+noturnas
+<Sync time="12.280"/>
+*NOI(res)
+</Turn>
+</Section>
+</Episode>
+</Trans>
