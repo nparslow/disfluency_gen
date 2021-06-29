@@ -2,8 +2,8 @@
 import tensorflow as tf
 import typing
 from typing import Any, Tuple
-from bahdanauAttention import BahdanauAttention
-from shapeChecker import ShapeChecker
+from .bahdanauAttention import BahdanauAttention
+from .shapeChecker import ShapeChecker
 
 
 class DecoderInput(typing.NamedTuple):

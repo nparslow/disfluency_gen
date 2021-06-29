@@ -1,8 +1,8 @@
 import tensorflow as tf
-from encoder import Encoder
-from decoder import Decoder
-from shapeChecker import ShapeChecker
-from decoder import DecoderInput
+from .encoder import Encoder
+from .decoder import Decoder
+from .shapeChecker import ShapeChecker
+from .decoder import DecoderInput
 
 
 class TrainTranslator(tf.keras.Model):

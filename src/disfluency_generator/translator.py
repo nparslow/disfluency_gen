@@ -1,9 +1,9 @@
 
 import tensorflow as tf
 import numpy as np
-from shapeChecker import ShapeChecker
-from data_preparation import tf_lower_and_split_punct
-from decoder import DecoderInput
+from .shapeChecker import ShapeChecker
+from .data_preparation import tf_lower_and_split_punct
+from .decoder import DecoderInput
 
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt

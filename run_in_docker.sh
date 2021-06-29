@@ -5,7 +5,7 @@ set -e
 usage() {
   echo "
     Usage: $0 [-d data_path] [script_to_run]
-                       e.g. $0 -d data/LetsReadCorpus bash
+                       e.g. $0 -d data bash
 
            script_to_run: 'test' to run tests and code coverage
                           'dev' or 'bash' to open a bash terminal in the container

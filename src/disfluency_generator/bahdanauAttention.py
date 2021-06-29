@@ -1,6 +1,6 @@
 
+from .shapeChecker import ShapeChecker
 import tensorflow as tf
-from shapeChecker import ShapeChecker
 
 
 # alternative would be Luong's multiplicative attention, to get this, change AdditiveAttention to Attention layers

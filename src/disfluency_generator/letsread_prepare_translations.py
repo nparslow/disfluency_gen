@@ -14,14 +14,15 @@ class LetsReadDataPrep:
         self.p2g = p2g
         self.df = None
 
-    def extract_annotation(self, trs_filename) -> str:
+    def extract_annotation(self, trs_filename, verbose=0) -> str:
         # note trsfile library fails - might be a python version clash
         # so using solution from:
         # https://stackoverflow.com/questions/61833003/how-to-parse-trs-xml-file-for-text-between-self-closing-tags
         try:
             tree = ET.parse(trs_filename)
         except FileNotFoundError:
-            print(f"Cannot find file {trs_filename}, skipping")
+            if verbose > 0:
+                print(f"Cannot find file {trs_filename}, skipping")
             return np.nan
         root = tree.getroot()
         data = [text.strip() for node in root.findall('.//Turn') for text in node.itertext() if text.strip()]

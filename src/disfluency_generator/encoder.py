@@ -1,6 +1,6 @@
 
 import tensorflow as tf
-from shapeChecker import ShapeChecker
+from .shapeChecker import ShapeChecker
 
 
 class Encoder(tf.keras.layers.Layer):
