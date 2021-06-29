@@ -4,6 +4,10 @@ import re
 
 
 class PhonemeToGrapheme:
+    """
+    A (very) simple rules based aproach to convert a string sequence of Portuguese SAMPA symbols into
+    a written form of that sequence
+    """
     def __init__(self, sampa_tsv_filename):
         self.sampa_df = pd.read_csv(sampa_tsv_filename, sep='\t', encoding="utf-8")
 
@@ -11,6 +15,12 @@ class PhonemeToGrapheme:
         self._phoneme2grapheme = dict(zip(self.sampa_df["Symbol"], self.sampa_df["grapheme"]))
 
     def split_phonemes(self, string_of_phonemes):
+        """
+        since the SAMPA phonemes can be multi-character, this loops over the string and looks for the longest
+        phoneme first at the start of the string
+        :param string_of_phonemes:
+        :return:
+        """
         # very basic, assumes no ambiguity, inefficient
         position = 0
         phonemes = []
@@ -31,11 +41,19 @@ class PhonemeToGrapheme:
         return phonemes
 
     def baseline_p2g(self, custom_pronunciation: str):
-        # some problems:
+        """
+
+        :param custom_pronunciation: e.g. [\"Ont6~j~]
+            should be surrounded in square brackets
+            can include ", :, ... and \ which will be stripped out
+        :return: a 'word-like-string' which corresponds to the pronunciation
+                e.g. ontêm
+        """
+        # some known problems:
         # S -> ch or s
         # accented e
         # z > s mid word ambiguous
-        # 6~ w~ at end of word can be 'ão' or 'am' - might be some rule to this
+        # 6~ w~ at end of word can be 'ão' or 'am' - might be some rule to this (?)
         custom_pronunciation = custom_pronunciation.strip("[]")
         # " = stress, : = lengthened vowel maybe, '...' = intraword pause probably
         custom_pronunciation = re.sub(r"[\"\\\:]", "", custom_pronunciation)

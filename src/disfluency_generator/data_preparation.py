@@ -45,7 +45,12 @@ def print_example_tokens(dataset, input_text_processor, target_text_processor):
 
 
 def tf_lower_and_split_punct(text):
-    # todo - the regexes below are language specific
+    """
+    pre-processing of text string
+    removes punctuation, removes accents from characters, normalises whitespace, adds [START] and [END] tokens
+    :param text:
+    :return: a tf tensor of the normalised string
+    """
     # Split accented characters. - NB this will see accents stripped out later on
     text = tf_text.normalize_utf8(text, 'NFKD')  # NFKD re: http://unicode.org/reports/tr15/ like ICU
     text = tf.strings.lower(text)  # does tf lower work ok for unicode accented chars?
