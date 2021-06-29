@@ -24,7 +24,7 @@ class Decoder(tf.keras.layers.Layer):
         self.output_vocab_size = output_vocab_size
         self.embedding_dim = embedding_dim
 
-        # For Step 1. The embedding layer convets token IDs to vectors
+        # For Step 1. The embedding layer converts token IDs to vectors
         self.embedding = tf.keras.layers.Embedding(self.output_vocab_size,
                                                    embedding_dim)
 
