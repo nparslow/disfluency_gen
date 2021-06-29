@@ -91,7 +91,7 @@ class Decoder(tf.keras.layers.Layer):
 
 
 if __name__ == '__main__':
-    from machine_translator import create_text_processor
+    from data_preparation import create_text_processor
     from encoder import Encoder
     import numpy as np
 

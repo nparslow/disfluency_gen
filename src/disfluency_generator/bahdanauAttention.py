@@ -48,7 +48,7 @@ if __name__ == '__main__':
         "another bit of sample text",
         "the story of texts",
     ]
-    from machine_translator import create_text_processor
+    from data_preparation import create_text_processor
     from encoder import Encoder
     import matplotlib.pyplot as plt
 

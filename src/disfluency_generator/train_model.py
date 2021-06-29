@@ -1,7 +1,7 @@
 
 
 import tensorflow as tf
-from machine_translator import load_data, create_dataset, print_examples, tf_lower_and_split_punct,\
+from data_preparation import load_data, create_dataset, print_examples, tf_lower_and_split_punct,\
     create_text_processor
 from encoder import Encoder
 from decoder import Decoder

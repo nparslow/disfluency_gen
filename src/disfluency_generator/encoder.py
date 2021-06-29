@@ -41,7 +41,7 @@ class Encoder(tf.keras.layers.Layer):
 
 # testing the encoder:
 if __name__ == '__main__':
-    from machine_translator import create_text_processor
+    from data_preparation import create_text_processor
 
     samples = [
         "some sample text.",
