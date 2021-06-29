@@ -1,8 +1,8 @@
 import tensorflow as tf
-from encoder import Encoder
-from decoder import Decoder
-from shapeChecker import ShapeChecker
-from decoder import DecoderInput
+from .encoder import Encoder
+from .decoder import Decoder
+from .shapeChecker import ShapeChecker
+from .decoder import DecoderInput
 
 
 class TrainTranslator(tf.keras.Model):
@@ -126,7 +126,7 @@ class BatchLogs(tf.keras.callbacks.Callback):
 
 
 if __name__ == '__main__':
-    from machine_translator import create_text_processor
+    from data_preparation import create_text_processor
     from maskedLoss import MaskedLoss
     import numpy as np
     embedding_dim = 3

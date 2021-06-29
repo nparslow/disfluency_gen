@@ -11,8 +11,10 @@ RUN python -m pip install -r requirements.txt
 
 COPY pyproject.toml .
 COPY setup.cfg .
+
 COPY src src
 COPY README.md .
+COPY resources resources
 COPY test test
 COPY run_tests.sh .
 

@@ -83,13 +83,3 @@ def plot_mask(tokens):
     plt.subplot(1, 2, 2)
     plt.pcolormesh(tokens != 0)
     plt.title('Mask')
-
-
-
-def main():
-    text = "A mãe do Flávio era florista."
-    print(tf_lower_and_split_punct(text))
-
-if __name__ == '__main__':
-    main()
-

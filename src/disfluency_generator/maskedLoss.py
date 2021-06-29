@@ -1,5 +1,5 @@
 import tensorflow as tf
-from shapeChecker import ShapeChecker
+from .shapeChecker import ShapeChecker
 
 
 class MaskedLoss(tf.keras.losses.Loss):
