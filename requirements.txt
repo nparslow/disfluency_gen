@@ -1,6 +1,9 @@
 pandas==1.1.5
 numpy==1.19.5
 tensorflow-text==2.5.0
+pathlib==1.0.1
+matplotlib==3.3.4
+# jupyter:
+jupyterlab==3.0.14
 # for testing:
 coverage==5.5
-jupyterlab==3.0.14
