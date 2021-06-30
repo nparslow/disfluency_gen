@@ -4,8 +4,10 @@ import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
 import re
+import pathlib
 
 from .portuguese_phoneme_to_grapheme import PhonemeToGrapheme
+from .data_preparation import tf_lower_and_split_punct
 
 
 class LetsReadDataPrep:
@@ -80,8 +82,41 @@ class LetsReadDataPrep:
         self.df["Spoken"] = self.df["AudioID"].apply(extract_spoken)
 
         filtered_df = self.df[self.df["Spoken"].notna()]
-        return list(filtered_df["Prompt"][filtered_df.Spoken.str.len() > 0]),\
+
+        return self.extract_input_and_targets(filtered_df)
+
+    @staticmethod
+    def extract_input_and_targets(filtered_df):
+        return list(filtered_df["Prompt"][filtered_df.Spoken.str.len() > 0]), \
                list(filtered_df["Spoken"][filtered_df.Spoken.str.len() > 0])
+
+    def train_test_split(self):
+        # for the moment we'll just split off a test set, will prob need a dev set in the future
+        # prompts are repeated so we want a prompt split
+        # we could try to balance vocab but for now it won't be considered.
+        filtered_df = self.df[self.df["Spoken"].notna()]
+
+        # the prompts in the tsv have typos and other minor differences,
+        # the prompt id doesn't really help unfortunately
+        # e.g. prompt id 888 and 789 are basically the same
+        filtered_df["Prompt_Norm"] = filtered_df["Prompt"].apply(
+            lambda x: tf_lower_and_split_punct(x).numpy().decode())
+        # even this is not enough, so we take the first 10 chars after the [START] symbol:
+        filtered_df["Prompt_Start"] = filtered_df["Prompt_Norm"].str[8:18]
+        prompt_counts = filtered_df["Prompt_Start"].value_counts()
+        # we still get 834 uniques, with some mistakes (e.g. vitoria-victoria)
+        # the entries with only 1 or 2 counts are most likely of this type
+        # so I'm going to select the first 5 prompts with 4 samples each for testing:
+        # a tiny test set but we can expand it later
+
+        test_prompt_starts = prompt_counts[prompt_counts==4][:5]
+        test_samples = filtered_df[filtered_df["Prompt_Start"].isin(test_prompt_starts.index)]
+
+        train_samples = filtered_df[~filtered_df["Prompt_Start"].isin(test_prompt_starts.index)]
+
+        # todo not a great way to pass the data:
+        return self.extract_input_and_targets(train_samples), self.extract_input_and_targets(test_samples)
+
 
     def vocab_histogram(self):
         """
@@ -104,14 +139,18 @@ class LetsReadDataPrep:
 
 def main():
 
-    repoRoot = os.path.abspath(os.path.join(os.getcwd(), '..', '..'))
+    repoRoot = pathlib.Path(__file__).resolve().parent.parent.parent
+
     corpus_path = os.path.join(repoRoot, "data", "LetsReadDB")
 
     p2g = PhonemeToGrapheme(os.path.join(repoRoot, "resources", "sampa.tsv"))
     lrdp = LetsReadDataPrep(corpus_path, p2g=p2g)
     inputs, targets = lrdp.prep_letsread()
-    lrdp.vocab_histogram()
+    #lrdp.vocab_histogram()
 
+    lrdp.prep_letsread()
+
+    lrdp.train_test_split()
 
     # extract_annotation("a001_01_2")
 
